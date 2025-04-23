@@ -5,13 +5,13 @@ using Examen_25._1_Promedio_1.Interfaces;
 
 namespace Examen_25._1_Promedio_1.Models
 {
-    public class House : Building, IResidential
+    public class Apartment : Building, IResidential
     {
-        public House() : base("Casa", 100, 20) { }
+        public Apartment() : base("Departamento", 250, 35) { }
 
         public override void DisplayInfo()
         {
-            Console.WriteLine($"Casa - Costo: {Cost}, Ingreso: {IncomePerTurn}");
+            Console.WriteLine($"Departamento - Costo: {Cost}, Ingreso: {IncomePerTurn}");
         }
     }
 }
