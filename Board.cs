@@ -8,55 +8,76 @@ namespace Examen_25._1_Promedio_1
 {
     public class Board
     {
-        private Dictionary<string, Building> buildings = new Dictionary<string, Building>();
+        private Dictionary<string, Cell> cells;
+
+
+
+        public Board(int width, int height)
+        {
+            cells = new Dictionary<string, Cell>();
+            for (int row = 0; row < height; row++)
+            {
+                for (int col = 0; col < width; col++)
+                {
+                    string id = $"{(char)('A' + row)}{col + 1}";
+                    cells[id] = new Cell(id);
+                }
+            }
+        }
+
 
         public bool PlaceBuilding(string id, Building building)
         {
-            if (buildings.ContainsKey(id)) return false;
-            buildings.Add(id, building);
-            return true;
+            if (cells.ContainsKey(id) && !cells[id].IsOwned)
+            {
+                cells[id].IsOwned = true;
+                cells[id].Building = building;
+                return true;
+            }
+            return false;
         }
+
 
         public void ShowBoard()
         {
-            Console.WriteLine("\n== Edificios en el tablero ==");
-            foreach (KeyValuePair<string, Building> pair in buildings)
+            Console.WriteLine("\n== Tablero de la Ciudad ==");
+            for (int row = 0; row < 5; row++) 
             {
-                Console.Write($"[{pair.Key}] ");
-                pair.Value.DisplayInfo();
+                for (int col = 0; col < 5; col++) 
+                {
+                    string id = $"{(char)('A' + row)}{col + 1}";
+                    Console.Write($"{cells[id].Display()} ");
+                }
+                Console.WriteLine();
             }
         }
+
 
         public int GetTotalIncome()
         {
             int total = 0;
-            foreach (Building building in buildings.Values)
+            foreach (var cell in cells.Values)
             {
-                total += building.IncomePerTurn;
-            }
-            return total;
-        }
-
-        public int GetTotalUpkeep()
-        {
-            int total = 0;
-            foreach (Building building in buildings.Values)
-            {
-                if (building is IUpkeep upkeep)
+                if (cell.Building != null)
                 {
-                    total += upkeep.GetUpkeepCost();
+                    total += cell.Building.IncomePerTurn;
                 }
             }
             return total;
         }
 
-        public Building? GetBuildingAt(string id)
+        
+        public int GetTotalUpkeep()
         {
-            if (buildings.ContainsKey(id))
+            int total = 0;
+            foreach (var cell in cells.Values)
             {
-                return buildings[id];
+                if (cell.Building is IUpkeep upkeep)
+                {
+                    total += upkeep.GetUpkeepCost();
+                }
             }
-            return null;
+            return total;
         }
     }
 }
