@@ -5,18 +5,18 @@ using Examen_25._1_Promedio_1.Interfaces;
 
 namespace Examen_25._1_Promedio_1.Models
 {
-    public class Factory : Building, IIndustrial, IUpkeep
+    public class School : Building, IPublicService, IUpkeep
     {
-        public Factory() : base("Fábrica", 300, 50) { }
+        public School() : base("Escuela", 400, 0) { }
 
         public override void DisplayInfo()
         {
-            Console.WriteLine($"Fábrica - Costo: {Cost}, Ingreso: {IncomePerTurn}, Mantenimiento: {GetUpkeepCost()}");
+            Console.WriteLine($"Escuela - Costo: {Cost}, Mantenimiento: {GetUpkeepCost()}");
         }
 
         public int GetUpkeepCost()
         {
-            return 10;
+            return 15;
         }
     }
 }
