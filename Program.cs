@@ -1,5 +1,7 @@
 ﻿using System;
 
+
+
 namespace Examen_25._1_Promedio_1
 {
     class Program
