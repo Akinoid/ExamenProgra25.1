@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Examen_25._1_Promedio_1.Models;
 
 
 namespace Examen_25._1_Promedio_1
